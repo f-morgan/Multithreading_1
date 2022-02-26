@@ -1,17 +1,16 @@
-class MyThread extends Thread {
+import java.util.concurrent.Callable;
+
+class MyThread implements Callable<Integer> {
 
     @Override
-    public void run() {
-        String nameThread = Thread.currentThread().getName();
-        try {
-            while(!isInterrupted()) {
-                Thread.sleep(2500);
-                System.out.println("Я - " + nameThread + "! Всем привет!");
-            }
-        } catch (InterruptedException err) {
-
-        } finally{
-            System.out.printf("Поток %s вышел из чата\n", nameThread);
+    public Integer call() {
+        var nameThread = Thread.currentThread().getName();
+        var count =  (int)(Math.random() * 5 + 1);
+        for (int i = 0; i < count; i++) {
+            System.out.println("Я - " + nameThread + "! Всем привет!");
         }
+        return count;
     }
+
+
 }
